@@ -1,6 +1,5 @@
 <?@unlink(__DIR__.'/log.txt');
 
-ob_implicit_flush(false);
 function toLog($what)
 {
     file_put_contents(__DIR__.'/log.txt', $what.PHP_EOL, FILE_APPEND);
