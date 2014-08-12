@@ -1,4 +1,5 @@
 <?@unlink(__DIR__.'/log.txt');
+ignore_user_abort(true);
 
 function toLog($what)
 {
