@@ -31,7 +31,10 @@ for($i=2; $i<=20; $i++)
 		echo ' ';
 		flush();
 		if(connection_aborted())
+		{
+			toLog('aborted');
 			exit;
+		}
 		else
 			foreach($buffers as $content)
 			{
