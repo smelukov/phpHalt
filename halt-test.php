@@ -18,22 +18,29 @@ echo 'dummy2';
 
 ob_start();
 
+$maxMSeconds = 0.5;
+$lastMSeconds = 0;
 for($i=2; $i<=20; $i++)
 {
-    $buffers = array();
-    echo ($i*$i).'<br>';
-    while(ob_get_level())
-        array_unshift($buffers, ob_get_clean());
-    echo ' ';
-    flush();
-    if(connection_aborted())
-        exit;
-    else
-        foreach($buffers as $content)
-        {
-            ob_start();
-            echo $content;
-        }
+    if((microtime(true)-$lastMSeconds) > $maxMSeconds)
+    {
+		$buffers = array();
+		
+		while(ob_get_level())
+			array_unshift($buffers, ob_get_clean());
+		echo ' ';
+		flush();
+		if(connection_aborted())
+			exit;
+		else
+			foreach($buffers as $content)
+			{
+				ob_start();
+				echo $content;
+			}
+	}
+	echo ($i*$i).'<br>';
+	toLog('ok');
     sleep(1);
 }
 
